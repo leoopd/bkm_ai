@@ -1,3 +1,5 @@
+# ToDo:
+#   - add functionality to handle cases where title and or body cant be extracted due to format inconsistencies
 # Bugs:
 #   - does not properly decode utf-8 if type of file unicode text
 #   - splits .de-Domains etc. when it shouldnt
