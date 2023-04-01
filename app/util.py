@@ -5,7 +5,7 @@
 from bs4 import BeautifulSoup
 import re
 
-def newsletter_parser(path):
+def newsletter_parser_body(path):
     with open(path, 'rb') as f:
         soup = BeautifulSoup(f, 'html.parser')
         tmp = soup.get_text()
@@ -23,26 +23,3 @@ def newsletter_parser(path):
 
         return text
     
-path1 = 'python/bkm_ai/test_newsl/Strato Newsletter.html'
-path2 = 'python/bkm_ai/test_newsl/Strato Newsletter2.html'
-path3 = 'python/bkm_ai/test_newsl/Strato Newsletter3.html'
-path4 = 'python/bkm_ai/test_newsl/Strato Newsletter4.html'
-path5 = 'python/bkm_ai/test_newsl/Strato Newsletter5.html'
-
-
-
-print()
-print(newsletter_parser(path1))
-print()
-print()
-print(newsletter_parser(path2))
-print()
-print()
-print(newsletter_parser(path3))
-print()
-print()
-print(newsletter_parser(path4))
-print()
-print()
-print(newsletter_parser(path5))
-print()
