@@ -23,3 +23,21 @@ def newsletter_parser_body(path):
 
         return text
     
+def newsletter_parser_title(path):
+    with open(path, 'rb') as f:
+        soup = BeautifulSoup(f, 'html.parser')
+
+        # Tries to find the title as a header.
+        try:
+            title = soup.find_all('span', style="font-size:16px;")[0].text
+            return title
+        except IndexError:
+
+            # Looks for a Title embedded into an image.
+            try:
+                img_title = soup.find_all('img')[1].get('alt')
+                return img_title
+            except IndexError:
+                print(f'no title or img_title for file: {path}')
+
+print(newsletter_parser_title('/home/leo/coding/python/bkm_ai/test_newsl/Strato Newsletter3.html'))
