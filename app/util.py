@@ -7,6 +7,7 @@
 from bs4 import BeautifulSoup
 import re
 import os
+import csv
 
 def newsletter_parser_body(path):
     with open(path, 'rb') as f:
@@ -44,6 +45,8 @@ def newsletter_parser_title(path):
 
 def newsletter_dict_maker(folder_path):
     prompts = {}
+
+    # Iterates over all files in the folder specified
     for filename in os.listdir(folder_path):
         file_path = os.path.join(folder_path, filename)
         if os.path.isfile(file_path):
@@ -53,8 +56,11 @@ def newsletter_dict_maker(folder_path):
                 prompts[title] = text
     return prompts
 
-prompts = newsletter_dict_maker('/home/leo/coding/python/bkm_ai/test_newsl')
+def prompts_to_csv(prompts_dict):
+    with open('python/bkm_ai/test_output/prompts_output.csv', 'w') as f:
+        writer = csv.writer(f, delimiter='#')
+        writer.writerow(['Title', 'Text'])
+        for title, text in prompts_dict.items():
+            writer.writerow([title, text])
 
-for prompt in prompts.items():
-    print(prompt)
-    print('\n###\n')
+prompts_to_csv(newsletter_dict_maker('/home/leo/coding/python/bkm_ai/test_newsl'))
