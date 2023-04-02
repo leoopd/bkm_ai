@@ -3,10 +3,8 @@ import email
 from getpass import getpass
 
 # Login to your email account
-# username = input('gmail: ')
-# password = getpass('password: ')
-username = 'ralf.hinberger.bkm@web.de'
-password = 'hUo8#&03M#PD'
+username = input('gmail: ')
+password = getpass('password: ')
 imap_host = 'imap.web.de'
 imap_port = 993
 
