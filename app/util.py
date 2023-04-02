@@ -16,6 +16,13 @@ path3 = '/home/leo/coding/python/bkm_ai/test_newsl/20230402-WG_ Welt-Backup-Tag_
 folder_path = '/home/leo/coding/python/bkm_ai/test_newsl'
 
 def newsletter_parser_body(path):
+    """
+        Parses the text body if the newsletter follows the format:
+         - Text starts with 'Hallo' or 'Sehr geehrt' 
+         - Text ends with '30 Tage'
+
+        returns the text as string
+    """
     with open(path, 'rb') as f:
         soup = BeautifulSoup(f, 'html.parser')
         tmp = soup.get_text()
@@ -37,29 +44,41 @@ def newsletter_parser_body(path):
         return text
 
 def newsletter_parser_title(path):
-        # Tries to find the title as a header.
+    """
+        Parses the title if the newsletter follows the format:
+        - Title included as a header size 16 or 19
+        - Title embedded in the second or third element
+
+        returns the title as string
+    """
+    # Tries to find the title as a header.
+    try:
+        with open(path, 'rb') as f:
+            soup = BeautifulSoup(f, 'html.parser')
+            title_tag = soup.find_all('span', style="font-size:16px;")
+            if not title_tag:
+                title_tag = soup.find_all('span', style="font-size:19px;")
+            return title_tag[0].text                
+    except:
+        # Looks for a Title embedded into an image if not found as header.
         try:
             with open(path, 'rb') as f:
                 soup = BeautifulSoup(f, 'html.parser')
-                title_tag = soup.find_all('span', style="font-size:16px;")
-                if not title_tag:
-                    title_tag = soup.find_all('span', style="font-size:19px;")
-                return title_tag[0].text
-                
+                img_title = soup.find_all('img')[1].get('alt')
+                if img_title == 'STRATO AG':
+                    img_title = soup.find_all('img')[2].get('alt')
+                return img_title       
         except:
-            # Looks for a Title embedded into an image.
-            try:
-                with open(path, 'rb') as f:
-                    soup = BeautifulSoup(f, 'html.parser')
-                    img_title = soup.find_all('img')[1].get('alt')
-                    if img_title == 'STRATO AG':
-                        img_title = soup.find_all('img')[2].get('alt')
-                    return img_title
-                    
-            except:
-                return ''
+            return ''
 
 def newsletter_dict_maker(folder_path):
+    """
+        Calls  newsletter_parser_body() and newsletter_parser_title() on every 
+        file in the specified folder path and combines title and text into a
+        dict or prints the path if one is missing.
+
+        returns a dict
+    """
     prompts = {}
 
     # Iterates over all files in the folder specified.
@@ -79,6 +98,9 @@ def newsletter_dict_maker(folder_path):
     return prompts
 
 def prompts_to_csv(prompts_dict):
+    """
+        Writes the dict returned from newsletter_dict_maker() as a csv.
+    """
     with open('python/bkm_ai/test_output/prompts_output.csv', 'w') as f:
         writer = csv.writer(f, delimiter='#')
         writer.writerow(['Title', 'Text'])
