@@ -8,6 +8,7 @@ Furthermore, the project needs to satisfy the following:
 - work on a multitude of files
 - works for different iterations of newsletters (newsletters don't follow a strict structure)
 - outputs a file (training data) that can be optimized using the openai cli tool:
+
 ![Annotation 2023-04-04 091134](https://user-images.githubusercontent.com/109588159/229715920-a09293ba-f80a-4d31-b145-7e175994dbe6.png)
 
 To train the model:
