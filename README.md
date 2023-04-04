@@ -12,5 +12,4 @@ Furthermore, the project needs to satisfy the following:
 
 To train the model:
 ![3](https://user-images.githubusercontent.com/109588159/229716504-57101627-e250-462b-b6e9-8dd5b99794fd.png)
-
-(![4](https://user-images.githubusercontent.com/109588159/229716970-3e9e03d5-fea8-480a-9e27-91b12ae630b0.png))
+![4](https://user-images.githubusercontent.com/109588159/229716970-3e9e03d5-fea8-480a-9e27-91b12ae630b0.png)
