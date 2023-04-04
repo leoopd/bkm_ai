@@ -1,7 +1,6 @@
 # ToDo:
-#   - the textbodies end in different 
+#   - 
 # Bugs:
-#   - does not properly decode utf-8 if type of file unicode text
 #   - splits .de-Domains etc. when it shouldnt
 
 from bs4 import BeautifulSoup
